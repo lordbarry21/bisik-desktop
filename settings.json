@@ -1,0 +1,15 @@
+{
+  "transcription_url": "https://bisik-proxy.vercel.app/api/transcribe",
+  "api_key": "",
+  "model": "whisper-large-v3",
+  "fallback_model": "whisper-large-v3-turbo",
+  "language": "auto",
+  "sample_rate": 16000,
+  "live_preview": false,
+  "auto_paste": true,
+  "save_transcripts": true,
+  "hotkey": "win+o",
+  "show_floating_icon": true,
+  "check_updates": true,
+  "vocabulary_prompt": "Percakapan coding, AI, dan software engineering dalam bahasa Indonesia dan English: Antigravity, Gemini, Claude, DeepSeek, Qwen, Whisper, Next.js, React, Tailwind, Python, TypeScript, JavaScript, JSON, API, UI, frontend, backend, bug, refactor, commit, PRD, npm, prompt."
+}

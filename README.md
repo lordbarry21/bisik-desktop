@@ -1,133 +1,172 @@
-<div align="center">
+﻿<div align="center">
 
-<img src="assets/logo.png" width="120" height="120" alt="Bisik Desktop Logo" style="border-radius: 26px;" />
+<img src="assets/logo.png" width="120" height="120" alt="Bisik Logo" style="border-radius: 26px;" />
 
-# Bisik Desktop
+# 🎙️ Bisik
 
-**Ultra-Fast Whisper Speech-to-Text for Windows**
+**Ultra-fast, distraction-free AI voice typing & dictation assistant for Windows.**  
+Powered by OpenAI's Whisper Large v3 with per-pixel alpha floating Dynamic Island.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?logo=windows&logoColor=white" alt="Windows" />
-  <img src="https://img.shields.io/badge/Model-Whisper%20Large%20v3-7852FF" alt="Model" />
-  <img src="https://img.shields.io/badge/Inference-Groq%20LPU-F55036" alt="Groq" />
-  <img src="https://img.shields.io/badge/Latency-%3C500ms-00C853" alt="Latency" />
-  <img src="https://img.shields.io/badge/Release-v1.0.0-blue" alt="Version" />
-  <img src="https://img.shields.io/badge/Architecture-Zero--Disk%20I%2FO-white?color=18181B" alt="Zero-Disk I/O" />
-</p>
+[![Release](https://img.shields.io/badge/Release-v1.1.0-38bdf8?style=for-the-badge&logo=windows)](https://github.com/lordbarry21/bisik-desktop/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows_10_%7C_11_(64--bit)-0284c7?style=for-the-badge&logo=windows11)](https://github.com/lordbarry21/bisik-desktop)
+[![License](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](LICENSE)
+[![Author](https://img.shields.io/badge/Author-Bari_Hartanto_Achmad-8b5cf6?style=for-the-badge)](https://github.com/lordbarry21)
 
-<p align="center">
-  Dynamic Island floating mic widget powered by Groq LPU Whisper with zero-disk I/O, dual-model auto-fallback, and instant auto-paste across any Windows app.
-</p>
+<br/>
 
-[⬇️ **Download Bisik for Windows (v1.0.0)**](https://github.com/lordbarry21/bisik-desktop/releases/download/v1.0.0/Bisik-v1.0.0-Windows.zip) &nbsp;•&nbsp; [✨ Fitur Utama](#-fitur-utama) &nbsp;•&nbsp; [⌨️ Pintasan Keyboard](#️-pintasan-keyboard--kontrol) &nbsp;•&nbsp; [🏗️ Arsitektur](#️-arsitektur--cara-kerja)
-
----
-
-<img src="assets/banner.png" width="100%" alt="Bisik Desktop Banner" />
+[**Download Windows Installer (.exe)**](https://github.com/lordbarry21/bisik-desktop/releases/latest) • [**Download Portable (.zip)**](https://github.com/lordbarry21/bisik-desktop/releases/latest) • [**Report Issue**](https://github.com/lordbarry21/bisik-desktop/issues)
 
 </div>
 
 ---
 
-## ⚡ Overview
+## 🌟 Overview
 
-**Bisik Desktop** adalah aplikasi Speech-to-Text ultra-cepat untuk Windows yang didesain dengan konsep **Dynamic Island floating widget**. Cukup tekan shortcut `Win + O` atau klik bubble mikrofon, bicara, dan hasil transkripsi akurat dari **Whisper Large v3** akan langsung tertempel otomatis (*auto-paste*) ke aplikasi apa pun yang sedang aktif tanpa mengganggu fokus jendela Anda.
+**Bisik** (Indonesian for *"Whisper"*) is a native Windows voice dictation tool inspired by Wispr Flow and Superwhisper. It sits unobtrusively on your desktop as a sleek circular microphone bubble. 
 
-Seluruh proses audio berjalan **100% in-memory (Zero-Disk I/O)** untuk kecepatan maksimum dan menjaga keawetan SSD.
+Press **`Win+O`** anywhere—in VS Code, Chrome, Slack, Word, Discord, or Terminal—speak naturally, and watch your voice transcribe and auto-paste directly into your active cursor position in milliseconds.
 
----
-
-## ✨ Fitur Utama
-
-- **🏝️ Dynamic Island Recording Pill:** Tampilan minimalis modern tanpa teks yang mengganggu. Menampilkan visualizer gelombang suara real-time dan timer durasi yang responsif.
-- **🎙️ Floating Mic Bubble:** Icon mic bulat minimalis (44px) yang selalu melayang di layar (*always-on-top*). Klik untuk mulai merekam, klik lagi untuk selesai dan langsung paste teks. Posisi dapat di-drag bebas ke sudut mana pun.
-- **⚡ Zero-Disk I/O & Ultra Cepat:** Audio direkam langsung ke RAM buffer tanpa membuat file temporary di SSD/HDD. Transkripsi selesai dalam hitungan ratusan milidetik via Groq LPU.
-- **🛡️ Dual-Model Auto-Fallback:** Menggunakan `whisper-large-v3` untuk akurasi tertinggi, dan otomatis fallback ke `whisper-large-v3-turbo` jika model utama sibuk atau terkena rate limit.
-- **📋 Universal Auto-Paste:** Otomatis menginjeksikan teks hasil transkripsi via simulasi keyboard Win32 langsung ke aplikasi aktif (VS Code, Chrome, Word, Slack, Terminal, Notion, Discord) tanpa kehilangan window focus.
-- **🌐 Glassmorphic Language Switcher:** Selector bahasa minimalis bergaya glassmorphism (*rounded 14px*). Mendukung **Auto Detect**, **Bahasa Indonesia (ID)**, dan **English (EN)**.
-- **📜 Local Transcript History:** Riwayat transkripsi tersimpan rapi secara lokal di `%LOCALAPPDATA%\Bisik\transcripts.txt` untuk referensi cepat.
+```
+       [ 🎙️ 44px Bubble ]  ──( Click / Win+O )──►  [ 🔴 00:08 ||||||| 🌐 AUTO ▾  ✕ ]
+```
 
 ---
 
-## 🖼️ Tampilan Widget
+## ✨ Features
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <b>Bubble Mic Standby (Compact)</b><br/><br/>
-        <img src="assets/overlay_preview_compact.png" alt="Bubble Mic Compact" width="300" />
-      </td>
-      <td align="center">
-        <b>Recording Pill (Dynamic Island)</b><br/><br/>
-        <img src="assets/overlay_preview_expanded.png" alt="Dynamic Island Recording" width="300" />
-      </td>
-    </tr>
-  </table>
-</div>
+- 🏝️ **Floating Dynamic Island UI**: 
+  - Sits as a minimalist 44px circular mic bubble when idle.
+  - **Show or Hide On Demand**: Toggle the floating icon via the right-click menu or Settings to keep your desktop completely distraction-free when idle. The island seamlessly appears whenever you trigger dictation.
+  - Expands smoothly to a 240px recording pill with live audio waveform bars, speech timer, status indicator, language selector, and close button.
+  - **Zero Jagged Edges**: Rendered via Win32 hardware-accelerated per-pixel alpha (`UpdateLayeredWindow`), blending seamlessly into white, dark, or wallpaper backgrounds with zero halo or pixelation.
+  - Click-through transparency outside the pill boundaries.
+
+- 🔎 **Full Windows Integration**:
+  - Automatically indexed in **Windows Search** (press Start, type `Bisik`, hit Enter).
+  - Clean **Desktop Shortcut** and **Start Menu** entry.
+  - Registered in Windows Settings & Control Panel (Add or Remove Programs) with dedicated 1-click uninstaller.
+  - Single-instance protection via Win32 Mutex (never runs conflicting duplicates).
+  - Native Per-Monitor High-DPI awareness (razor sharp on 100%, 125%, 150%, 200% displays).
+
+- 🧠 **Whisper Large v3 with Dual-Model Auto-Fallback**:
+  - Uses state-of-the-art `whisper-large-v3` for human-level accuracy.
+  - Automatic, seamless fallback to `whisper-large-v3-turbo` if the primary model is rate-limited or exhausted.
+
+- 🛡️ **Anti-Hallucination & Speech Normalization**:
+  - Pre-transcription RMS energy gating cuts out leading and trailing silence.
+  - Filters ghost hallucinations (*"Thank you for watching"*, *"Bye"*, etc.).
+  - Automatic gain control and peak normalization for whisper-quiet and loud environments.
+
+- ⚙️ **Modern Dark-Mode Settings Center**:
+  - Configure API endpoints, API keys, and custom models.
+  - Choose your preferred microphone input device from detected hardware.
+  - Customize global toggle hotkey (e.g. `Win+O`, `Ctrl+Shift+Space`).
+  - Toggle subtle audio feedback chimes on start/finish.
+  - Customize technical vocabulary and programming keyword prompts.
+
+- 🌐 **Instant Multi-Language Dictation**:
+  - Quick-switch between **Auto Detect**, **Bahasa Indonesia (ID)**, and **English (EN)** directly from the pill widget or system tray.
+
+- 🔄 **Automatic Update Reminders**:
+  - Background daemon checks GitHub Releases periodically every 3 hours.
+  - Non-intrusive Windows system tray notifications when a new version is published.
+  - Direct download shortcut from the system tray menu and Settings Center.
+  - Manual "Check for updates" option at any time.
 
 ---
 
-## 🚀 Download & Quick Start
+## 📥 Installation
 
-1. **Unduh installer/portable zip:**  
-   👉 [**Bisik-v1.0.0-Windows.zip**](https://github.com/lordbarry21/bisik-desktop/releases/download/v1.0.0/Bisik-v1.0.0-Windows.zip)
-2. **Ekstrak** file `.zip` ke folder pilihan Anda (misalnya `C:\Program Files\Bisik` atau folder Tools Anda).
-3. Jalankan **`Bisik.exe`**.
-4. Bubble mic melayang akan muncul di layar desktop dan icon tray aktif di taskbar pojok kanan bawah.
-5. Tekan **`Win + O`**, ucapkan kalimat Anda, tekan **`Win + O`** lagi — teks langsung tertulis di kursor Anda!
+### Method 1: Windows Setup Installer (Recommended)
+
+1. Download **`Bisik-v1.1.0-Windows-Setup.exe`** from [Releases](https://github.com/lordbarry21/bisik-desktop/releases/latest).
+2. Run the installer (no administrator privileges needed—installs cleanly to `%LOCALAPPDATA%\Programs\Bisik`).
+3. Follow the wizard to add a **Desktop shortcut** and enable **Auto-start with Windows**.
+4. Bisik will launch immediately and be accessible from **Windows Search**, **Desktop**, and the **System Tray**.
+
+### Method 2: Portable Edition
+
+1. Download **`Bisik-v1.1.0-Windows-Portable.zip`**.
+2. Extract anywhere on your PC (e.g. `D:\Apps\Bisik`).
+3. Run `Bisik.exe`. All configurations and logs will stay portable.
+
+### Method 3: Run from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/lordbarry21/bisik-desktop.git
+cd bisik
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run Bisik
+python main.py
+```
 
 ---
 
-## ⌨️ Pintasan Keyboard & Kontrol
+## ⌨️ How to Use
 
-| Kontrol | Aksi | Keterangan |
+| Action | Shortcut / Gesture | Description |
 | :--- | :--- | :--- |
-| <kbd>Win</kbd> + <kbd>O</kbd> | **Toggle Record / Transcribe** | Mulai merekam, atau stop dan langsung auto-paste |
-| **Klik Kiri Mic** | **Toggle Record / Transcribe** | Kontrol manual via mouse |
-| **Drag & Drop Mic** | **Pindahkan Posisi** | Geser icon ke posisi yang nyaman di monitor |
-| **Klik Kanan Mic** | **Context Menu** | Retry rekaman terakhir, buka histori teks, toggle startup, exit |
+| **Toggle Recording** | `Win + O` (or click mic bubble) | Starts recording audio with waveform visualization |
+| **Stop & Transcribe** | `Win + O` (or click anywhere on pill) | Stops recording, transcribes, and auto-pastes at cursor |
+| **Switch Language** | Click `🌐 AUTO ▾` on pill | Opens popup to switch between Auto, ID, and EN |
+| **Cancel Recording** | Click `✕` button on pill | Discards current audio buffer without transcribing |
+| **Move Overlay** | Left-Click & Drag | Relocate the floating widget anywhere on your screen |
+| **System Tray Menu** | Right-Click Tray Icon | Access Settings, Transcripts folder, Startup toggle, and Exit |
+| **Open Settings** | Tray Menu → Settings... | Configure API keys, microphone device, hotkey, and audio cues |
 
 ---
 
-## 🏗️ Arsitektur & Cara Kerja
+## ⚙️ Configuration (`settings.json`)
 
+Settings can be edited visually in the **Settings Center** or manually via `settings.json`:
+
+```json
+{
+  "transcription_url": "https://bisik-proxy.vercel.app/api/transcribe",
+  "api_key": "",
+  "model": "whisper-large-v3",
+  "fallback_model": "whisper-large-v3-turbo",
+  "language": "auto",
+  "sample_rate": 16000,
+  "live_preview": false,
+  "auto_paste": true,
+  "save_transcripts": true,
+  "hotkey": "win+o",
+  "sound_feedback": true,
+  "input_device": "",
+  "vocabulary_prompt": "Percakapan coding, AI, dan software engineering dalam bahasa Indonesia dan English: Antigravity, Gemini, Claude, DeepSeek, Qwen, Whisper, Next.js, React, Tailwind, Python, TypeScript, JavaScript, JSON, API, UI, frontend, backend, bug, refactor, commit, PRD, npm, prompt."
+}
 ```
-[ Mikrofon ]
-     │
-     ▼ (Zero-Disk I/O: RAM Buffer)
-[ PyAudio in Memory ]
-     │
-     ▼ (Serverless Proxy / Direct)
-[ Groq LPU Whisper Large v3 ] ──(fallback jika sibuk)──> [ Whisper Large v3 Turbo ]
-     │
-     ▼ (Sub-500ms JSON Response)
-[ Win32 Keystroke Injector ]
-     │
-     ▼ (Auto Ctrl+V)
-[ Target App: VS Code / Browser / Word / Terminal ]
+
+---
+
+## 🛠️ Building & Packaging
+
+To compile the standalone binary and Inno Setup installer locally:
+
+```powershell
+# Automated one-click build (PyInstaller + Inno Setup + Portable ZIP)
+python build.py
 ```
 
----
-
-## 💻 Spesifikasi Teknis
-
-- **Core Engine:** Python 3.11 + PySide6 (Qt)
-- **Audio Capture:** PyAudio / SoundDevice (RAM buffer, 16kHz mono WAV)
-- **Inference Engine:** Groq Cloud LPU (`whisper-large-v3` & `whisper-large-v3-turbo`)
-- **Integration:** Windows Win32 API (`ctypes`, `RegisterHotKey`, `SendInput`)
-- **Compatibility:** Windows 10 & Windows 11 (64-bit)
+The output artifacts will be placed in `dist/`:
+- `dist/Bisik/Bisik.exe` (Standalone executable directory)
+- `dist/Bisik-v1.1.0-Windows-Setup.exe` (Windows Installer)
+- `dist/Bisik-v1.1.0-Windows-Portable.zip` (Portable release archive)
 
 ---
 
-## 🔒 Privasi & Keamanan
+## 👨‍💻 Author
 
-- **Zero Persistence Audio:** Audio Anda hanya berada di RAM selama tombol rekam aktif dan langsung dihapus setelah diproses. Tidak ada file `.wav` tersisa di drive.
-- **Koneksi Terenkripsi:** Audio dikirim via HTTPS TLS 1.3 langsung ke endpoint transkripsi terpercaya.
-- **Histori Tersimpan Lokal:** Log transkripsi teks hanya disimpan di PC Anda (`%LOCALAPPDATA%\Bisik\transcripts.txt`).
+Crafted with vibe coding by **Bari Hartanto Achmad**  
+- GitHub: [@lordbarry21](https://github.com/lordbarry21)
 
 ---
 
-<div align="center">
-  <sub>Built with precision by <b><a href="https://github.com/lordbarry21">Bari Hartanto (@lordbarry21)</a></b></sub>
-</div>
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).

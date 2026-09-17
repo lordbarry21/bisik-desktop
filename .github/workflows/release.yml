@@ -1,0 +1,57 @@
+name: Release Bisik Windows App
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller sounddevice numpy pillow requests keyboard pywin32
+
+      - name: Build Executable with PyInstaller
+        run: |
+          python -m PyInstaller --noconfirm Bisik.spec
+          Copy-Item kaze-icon.png, bisik.ico, settings.json -Destination dist\Bisik\ -Force
+
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup --no-progress -y
+
+      - name: Compile Inno Setup Installer
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" bisik_installer.iss
+
+      - name: Package Portable ZIP
+        run: |
+          Compress-Archive -Path dist\Bisik\* -DestinationPath dist\Bisik-v1.1.0-Windows-Portable.zip -Force
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Bisik ${{ github.ref_name }} - AI Voice Typing for Windows
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            dist/Bisik-v1.1.0-Windows-Setup.exe
+            dist/Bisik-v1.1.0-Windows-Portable.zip

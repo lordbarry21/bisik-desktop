@@ -1,5 +1,22 @@
-# System & Temp
-*.zip
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller & Build artifacts
+build/
+dist/
+*.spec.bak
+
+# Local logs & app data
 *.log
+*.wav
+rescue/
+
+# IDE / Editor artifacts
+.vscode/
+.idea/
+
+# System & OS
 .DS_Store
 Thumbs.db
