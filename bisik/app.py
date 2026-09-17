@@ -139,9 +139,13 @@ class AppController:
         if new_state:
             if self.state == "ready":
                 self.overlay.show_idle()
+            if self._tray:
+                self._tray.notify("Bisik", "Floating icon dimunculkan kembali.")
         else:
             if self.state == "ready":
                 self.overlay.hide()
+            if self._tray:
+                self._tray.notify("Bisik", "Icon disembunyikan. Klik icon taskbar untuk memunculkan kembali.")
 
     def open_settings(self) -> None:
         if self._settings_window and self._settings_window.win.winfo_exists():
@@ -249,7 +253,9 @@ class AppController:
             elif name == "settings":
                 self.open_settings()
             elif name in ("open_app", "open"):
-                if self.settings.show_floating_icon:
+                if not self.settings.show_floating_icon:
+                    self.toggle_floating_icon()
+                else:
                     self.overlay.show_idle()
                 self.open_settings()
             elif name == "exit":
@@ -276,7 +282,7 @@ class AppController:
         menu.add_command(label="Retry last recording", command=self.retry_last_recording)
         menu.add_separator()
         menu.add_command(
-            label="Hide floating icon" if self.settings.show_floating_icon else "Show floating icon",
+            label="Hide icon bisik" if self.settings.show_floating_icon else "Show icon bisik",
             command=self.toggle_floating_icon,
         )
         menu.add_separator()
