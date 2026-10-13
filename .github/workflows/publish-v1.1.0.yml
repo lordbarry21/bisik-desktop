@@ -1,0 +1,89 @@
+name: Publish Bisik v1.1.0
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/publish-v1.1.0.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bisik-v1.1.0-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Test, build, and publish Windows release
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out exact release source
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Validate release version
+        run: |
+          python -c "from bisik.config import APP_VERSION; assert APP_VERSION == '1.1.0', f'Unexpected version: {APP_VERSION}'"
+          if (-not (Select-String -Path "bisik_installer.iss" -Pattern '#define MyAppVersion "1.1.0"' -SimpleMatch)) { throw "Installer version is not 1.1.0" }
+        shell: pwsh
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run smoke tests
+        run: python smoke_test.py
+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+        shell: pwsh
+
+      - name: Build portable package and Windows installer
+        run: python build.py
+
+      - name: Verify release files exist
+        shell: pwsh
+        run: |
+          $files = @(
+            "dist/Bisik-v1.1.0-Windows-Setup.exe",
+            "dist/Bisik-v1.1.0-Windows-Portable.zip"
+          )
+          foreach ($file in $files) {
+            if (-not (Test-Path $file -PathType Leaf)) { throw "Missing release artifact: $file" }
+            if ((Get-Item $file).Length -le 0) { throw "Empty release artifact: $file" }
+            Write-Host "Verified: $file"
+          }
+
+      - name: Publish v1.1.0 GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.1.0
+          target_commitish: ${{ github.sha }}
+          name: Bisik Desktop v1.1.0 for Windows
+          draft: false
+          prerelease: false
+          make_latest: true
+          fail_on_unmatched_files: true
+          body: |
+            ## Bisik Desktop v1.1.0
+
+            - Floating Dynamic Island microphone with show/hide control.
+            - Improved Windows tray menu and update notifications.
+            - Background update reminders every 3 hours.
+            - Transcription using whisper-large-v3 with whisper-large-v3-turbo fallback.
+            - Windows setup installer and portable ZIP.
+
+            **Downloads:** Choose the Windows Setup EXE to install, or the Portable ZIP to run without an installer.
+          files: |
+            dist/Bisik-v1.1.0-Windows-Setup.exe
+            dist/Bisik-v1.1.0-Windows-Portable.zip
